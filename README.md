@@ -15,7 +15,13 @@
 
 `python3 -m src.cs2`
 
-## Output: `unmasque_dscale` schema in the database will be newly created, containing the sampled database.
+## Output: 
+
+`unmasque_dscale` schema in the database will be newly created, containing the sampled database.
+
+## Log
+
+`unmasque.log` file has all the logs
 
 
 
