@@ -97,67 +97,6 @@ def is_result_nonempty_nullfree(res, logger=None):
     return False
 
 
-def is_result_all_null(res, logger=None):
-    if logger is not None:
-        # logger.debug("is_result_all_null")
-        log_result(res, logger)
-
-    if res[1:] is None:
-        return False
-    if res[1:] == [None]:
-        return True
-    if not len(res[1:]):
-        return False
-    for row in res[1:]:
-        if all(val in [None, 'None'] for val in row):
-            return True
-    return False
-
-
-def is_result_has_no_data(res, logger=None):
-    if logger is not None:
-        # logger.debug("is_result_has_no_data")
-        log_result(res, logger)
-
-    if len(res) <= 1:
-        return True
-    return False
-
-
-def is_result_has_some_data(res, logger=None):
-    if logger is not None:
-        # logger.debug("is_result_has_some_data")
-        log_result(res, logger)
-
-    if res[1:] is None:
-        return False
-    if res[1:] == [None]:
-        return False
-    if not len(res[1:]):
-        return False
-    for row in res[1:]:
-        if any(val not in [None, 'None'] for val in row):
-            return True
-    return False
-
-
-def is_result_no_full_nullfree_row(res, logger):
-    if logger is not None:
-        # logger.debug("is_result_no_full_nullfree_row")
-        log_result(res, logger)
-
-    if res[1:] is None:
-        return True
-    if res[1:] == [None]:
-        return True
-    if not len(res[1:]):
-        return True
-    for row in res[1:]:
-        if all(val not in [None, 'None'] for val in row):
-            return False
-    return True
-
-
 def get_base_t(key_list, sizes):
     max_cs = 0
     base_t = 0
@@ -166,15 +105,6 @@ def get_base_t(key_list, sizes):
             max_cs = sizes[key_list[i][0]]
             base_t = i
     return base_t
-
-
-def get_format(datatype, val):
-    if datatype in ['date'] + TEXT_TYPES:
-        return f'\'{str(val)}\''
-    elif datatype in NUMERIC_TYPES:
-        val = float(val)
-        return str(round(val, 3))
-    return str(val)
 
 
 def get_format_args(msg, args):
@@ -188,147 +118,26 @@ def get_format_args(msg, args):
     return f_msg, f_args
 
 
-class PostgresQueries():
+class PostgresQueries:
     schema = None
 
     def set_schema(self, schema):
         self.schema = schema
 
-    def create_table_as_select_star_from_where(self, tab, fromtab, where):
-        return f"Create table {tab} as (Select * from {fromtab} where {where}); "  # \
-
-    def create_table_as_select_star_from_limit_1(self, tab, fromtab):
-        return f"Create table {tab} as (Select * from {fromtab} limit 1); "  # \
-
-    def form_update_query_with_value(self, update_string, datatype, val):
-        update_val = get_format(datatype, val)
-        return f"{update_string} {update_val};"
-
-    DEBUG_QUERY = "select pid, state, query from pg_stat_activity where datname = 'tpch';"
-    TERMINATE_STUCK_QUERIES = "SELECT pg_terminate_backend(pid);"
-
-    def get_explain_query(self, sql):
-        return f"EXPLAIN {sql}"
-
     def drop_table(self, tab):
         return f"drop table if exists {tab};"
-
-    def drop_table_cascade(self, tab):
-        return f"drop table if exists {tab} CASCADE;"
-
-    def alter_table_rename_to(self, tab, retab):
-        return f"Alter table if exists {tab} rename to {retab};"
-
-    def alter_view_rename_to(self, tab, retab):
-        return f"Alter view {tab} rename to {retab};"
 
     def create_table_like(self, tab, ctab):
         return f"Create table if not exists {tab} (like {ctab} including indexes); "  # \
 
-    def create_table_as_select_star_from(self, tab, fromtab):
-        return f"Create table if not exists {tab} as select * from {fromtab}; "  # \
-
     def get_row_count(self, tab):
         return f"select count(*) from {tab};"
-
-    def get_non_null_row_count(self, tab):
-        pass
-
-    def get_star(self, tab):
-        return f"select * from {tab};"
-
-    def get_star_from_except_all_get_star_from(self, tab1, tab2):
-        return f"(select * from {tab1} except all select * from {tab2})"
-
-    def get_min_max_ctid(self, tab):
-        return f"select min(ctid), max(ctid) from {tab};"
-
-    def drop_view(self, tab):
-        return f"drop view if exists {tab} cascade;"
-
-    def create_view_as(self, view, q):
-        return f"create view {view}  as {q}"
-
-    def create_view_as_select_star_where_ctid(self, mid_ctid1, start_ctid, view, tab):
-        _start_citd = str(start_ctid)
-        _end_ctid = str(mid_ctid1)
-        return f"create view {view} as select * from {tab} where ctid >= '{_start_citd}' and ctid <= '{_end_ctid}';"
-
-    def create_table_as_select_star_from_ctid(self, end_ctid, start_ctid, tab, fromtab):
-        _start_citd = str(start_ctid)
-        _end_ctid = str(end_ctid)
-        return f"create table {tab} as select * from {fromtab} " \
-               f"where ctid >= '{_start_citd}' and ctid <= '{_end_ctid}'; "  # \
-        # f"ALTER TABLE {tab} SET (autovacuum_enabled = false);"
-
-    def get_ctid_from(self, min_or_max, tabname):
-        return f"select {min_or_max}(ctid) from {tabname};"
 
     def truncate_table(self, table):
         return f"Truncate Table {table};"
 
-    def insert_into_tab_attribs_format(self, att_order, esc_string, tab):
-        if esc_string == "":
-            _count = att_order.count(",")
-            esc_list = [f"%s"] * (_count + 1)
-            esc_string = ",".join(esc_list)
-            esc_string = f"({esc_string})"
-        return f"INSERT INTO {tab} {att_order}  VALUES {esc_string};"
-
-    def update_key_attrib_with_val(self, tab, attrib, value, prev, qoted):
-        if qoted:
-            value = f"'{value}'"
-            prev = f"'{prev}'"
-        query = f"UPDATE {tab} SET {attrib} = CASE WHEN {attrib} = {prev} THEN {value} WHEN {attrib} = {value} THEN {prev} ELSE {attrib} END;"
-        return query
-
-    def update_tab_attrib_with_value(self, tab, attrib, value):
-        str_value = str(value)
-        query = f"UPDATE {tab}  SET {attrib}={str_value};"
-        # print(query)
-        return query
-
-    def update_tab_attrib_with_quoted_value(self, tab, attrib, value):
-        query = f"UPDATE {tab}  SET {attrib}= '{value}';"
-        # print(query)
-        return query
-
-    def update_sql_query_tab_attribs(self, tab, attrib):
-        tabname = str(tab)
-        col = str(attrib)
-        return f"update {tabname} set {col} = "
-
-    def get_column_details_for_table(self, schema, tab):
-        return f"select column_name, data_type, character_maximum_length from information_schema.columns where " \
-               f"table_schema = '{schema}' and table_name = '{tab}';"
-
-    def select_attribs_from_relation(self, tab_attribs, relation):
-        attribs = ", ".join(tab_attribs)
-        return f"select {attribs} from {relation};"
-
     def insert_into_tab_select_star_fromtab(self, tab, fromtab):
         return f"Insert into {tab} Select * from {fromtab};"
-
-    def insert_into_tab_select_star_fromtab_with_ctid(self, tab, fromtab, ctid):
-        return f"Insert into {tab} (Select * from {fromtab} Where ctid = {ctid});"
-
-    def select_ctid_from_tabname_offset(self, tabname, offset):
-        return f"Select ctid from {tabname} offset {offset} Limit 1;"
-
-    def select_next_ctid(self, tabname, mid_ctid1):
-        return f"Select Min(ctid) from {tabname} Where ctid > '{mid_ctid1}';"
-
-    def select_previous_ctid(self, tab, ctid1):
-        return f"Select MAX(ctid) from {tab} Where ctid < '{ctid1}';"
-
-    def select_max_ctid(self, tab):
-        return f"Select MAX(ctid) from {tab};"
-
-    def select_start_ctid_of_any_table(self):
-        return '(0,1)'
-
-    def hashtext_query(self, tab, qualified_name):
-        return f"select sum(hashtext) from (select hashtext({tab}::TEXT) FROM {qualified_name}) as T;"
 
 
 class Log(logging.Logger):
@@ -337,7 +146,7 @@ class Log(logging.Logger):
 
     def __init__(self, name, level):
         super().__init__(name, level)
-        self.base_path = Path(__file__).parent.parent.parent.parent
+        self.base_path = Path(__file__).parent.parent
         log_file = (self.base_path / "unmasque.log").resolve()
         fh = logging.FileHandler(log_file, 'a')
         fh.setLevel(level)
@@ -392,14 +201,6 @@ class AbstractConnectionHelper:
         self.queries = None
 
     @abstractmethod
-    def set_timeout_to_2s(self):
-        pass
-
-    @abstractmethod
-    def reset_timeout(self):
-        pass
-
-    @abstractmethod
     def begin_transaction(self):
         pass
 
@@ -410,26 +211,6 @@ class AbstractConnectionHelper:
     @abstractmethod
     def rollback_transaction(self):
         pass
-
-    def get_sanitization_select_query(self, projectns, predicates, schema):
-        selections = " and ".join(projectns)
-        wheres = " and ".join(predicates)
-        if len(predicates) == 1:
-            wheres = " and " + wheres
-        return self.form_query(selections, wheres, schema)
-
-    @abstractmethod
-    def test_connection(self):
-        pass
-
-    def validate_query(self, sql):
-        try:
-            self.connectUsingParams()
-            self.execute_sql_fetchall(self.queries.get_explain_query(sql))
-            self.closeConnection()
-        except Exception as e:
-            return str(e)
-        return OK
 
     def closeConnection(self):
         if self.conn is not None:
@@ -451,10 +232,6 @@ class AbstractConnectionHelper:
         cur = self.get_cursor()
         self.cus_execute_sqls(cur, sqls, logger)
 
-    def execute_sql_with_params(self, sql, params, logger=None):
-        cur = self.get_cursor()
-        self.cus_execute_sql_with_params(cur, sql, params, logger)
-
     def execute_sqls_with_DictCursor(self, sqls, logger=None):
         cur = self.get_DictCursor()
         self.cus_execute_sqls(cur, sqls, logger)
@@ -462,10 +239,6 @@ class AbstractConnectionHelper:
     def execute_sql_fetchone_0(self, sql, logger=None):
         cur = self.get_cursor()
         return self.cur_execute_sql_fetch_one_0(cur, sql, logger)
-
-    def execute_sql_fetchone(self, sql, logger=None):
-        cur = self.get_cursor()
-        return self.cur_execute_sql_fetch_one(cur, sql, logger)
 
     def execute_sql_with_DictCursor_fetchone_0(self, sql, logger=None):
         cur = self.get_DictCursor()
@@ -487,28 +260,9 @@ class AbstractConnectionHelper:
         pass
 
     @abstractmethod
-    def cus_execute_sql_with_params(self, cur, sql, params, logger=None):
-        pass
-
-    @abstractmethod
     def cur_execute_sql_fetch_one_0(self, cur, sql, logger=None):
         pass
 
-    @abstractmethod
-    def cur_execute_sql_fetch_one(self, cur, sql, logger=None):
-        pass
-
-    @abstractmethod
-    def form_query(self, selections, wheres, schema):
-        pass
-
-    @abstractmethod
-    def is_view_or_table(self, tab, schema):
-        pass
-
-    @abstractmethod
-    def get_all_tables_for_restore(self):
-        pass
 
 
 class Config:
@@ -584,28 +338,8 @@ class Config:
 
 class PostgresConnectionHelper(AbstractConnectionHelper):
 
-    def get_all_tables_for_restore(self):
-        pass
-
     def rollback_transaction(self):
         self.execute_sql(["ROLLBACK;"])
-
-    def set_timeout_to_2s(self):
-        return "set statement_timeout to '2s';"
-
-    def reset_timeout(self):
-        return "set statement_timeout to DEFAULT;"
-
-    def is_view_or_table(self, tab, schema):
-        # Reference: https://www.postgresql.org/docs/current/infoschema-tables.html
-        check_query = self.get_sanitization_select_query(["table_type"], [f" table_name = '{tab}'"], schema)
-        res, _ = self.execute_sql_fetchall(check_query)
-
-        if len(res) > 0:
-            if res[0][0] == 'VIEW':
-                return 'view'
-            else:
-                return 'table'
 
     def __init__(self, config, **kwargs):
         super().__init__(config, **kwargs)
@@ -614,12 +348,6 @@ class PostgresConnectionHelper(AbstractConnectionHelper):
         self.queries = PostgresQueries()
         self.config.config_loaded = True
 
-    def form_query(self, selections, wheres, schema):
-        query = f"Select {selections}  From information_schema.tables " + \
-                f"WHERE table_schema = '{schema}' and " \
-                f"TABLE_CATALOG= '{self.config.dbname}' {wheres} ;"
-        query = re.sub(' +', ' ', query)
-        return query
 
     def begin_transaction(self):
         self.execute_sql(["BEGIN;"])
@@ -706,177 +434,8 @@ class PostgresConnectionHelper(AbstractConnectionHelper):
                 logger.error(e.diag.message_detail)
         return prev
 
-    def cur_execute_sql_fetch_one(self, cur, sql, logger=None):
-        prev = None
-        # if logger is not None:
-        #    logger.debug("..cur execute.." + sql)
-        try:
-            cur.execute(sql)
-            prev = cur.fetchone()
-        except psycopg2.ProgrammingError as e:
-            if logger is not None:
-                logger.error(e)
-                logger.error(e.diag.message_detail)
-        # finally:
-        #    cur.close()
-        return prev
 
-
-class TpchSanitizer:
-
-    def __init__(self, connectionHelper: AbstractConnectionHelper, all_sizes=None):
-        if all_sizes is None:
-            all_sizes = {}
-        self.all_sizes = all_sizes
-        self.all_relations = []
-        self.connectionHelper = connectionHelper
-        self.logger = Log("TpchSanitizer", connectionHelper.config.log_level)
-
-    def remove_footprint(self):
-        self.connectionHelper.execute_sql([f"Drop Schema if exists {self.connectionHelper.config.schema} cascade;"],
-                                          self.logger)
-
-    def _create_working_schema(self):
-        self.remove_footprint()
-        self.connectionHelper.execute_sql([f"Create Schema {self.connectionHelper.config.schema};"], self.logger)
-
-    def get_fully_qualified_table_name(self, table):
-        return f"{self.connectionHelper.config.schema}.{table}"
-
-    def get_original_table_name(self, table):
-        return f"{self.connectionHelper.config.user_schema}.{table}"
-
-    def set_all_relations(self, relations: List[str]):
-        self.all_relations.extend(copy.copy(relations))
-
-    def take_backup(self):
-        tables = self.all_relations
-        for table in tables:
-            self.backup_one_table(table)
-
-    def sanitize(self):
-        self.connectionHelper.begin_transaction()
-        tables = self.all_relations  # self.connectionHelper.get_all_tables_for_restore()
-        for table in tables:
-            self.sanitize_one_table(table)
-        self.connectionHelper.commit_transaction()
-
-    def restore_db_finally(self):
-        # for table in self.all_relations:
-        #    self.drop_derived_relations(table)
-        #   drop_fn = self.get_drop_fn(table)
-        #   self.connectionHelper.execute_sql([drop_fn(table),
-        #                                      self.connectionHelper.queries.alter_table_rename_to(self.connectionHelper.queries.get_backup(table), table)])"""
-        """ This method is called only when UNMASQUE no more needs its working schema"""
-        self._create_working_schema()
-
-    def restore_one_table(self, table):
-        self.drop_derived_relations(table)
-        drop_fn = self.get_drop_fn(table)
-        f_table = self.get_fully_qualified_table_name(table)
-        backup_name = self.get_original_table_name(table)
-        self.connectionHelper.execute_sql([drop_fn(f_table),
-                                           self.connectionHelper.queries.create_table_like(f_table, backup_name),
-                                           self.connectionHelper.queries.insert_into_tab_select_star_fromtab(
-                                               f_table, backup_name)],
-                                          self.logger)
-
-    def __create_col_idx_if_not_exists(self, tab, col):
-        idx = f"{tab}_{col}_idx"
-
-        sql = f"""
-            DO $$
-            BEGIN
-                IF NOT EXISTS (
-                    SELECT 1
-                        FROM pg_index i
-                            JOIN pg_attribute a ON a.attrelid = i.indrelid
-                          AND a.attnum = ANY(i.indkey)
-                            WHERE i.indrelid = '{tab}'::regclass
-                            AND a.attname = '{col}'
-                ) THEN
-                    EXECUTE 'CREATE INDEX {idx} ON {tab} ({col})';
-                END IF;
-            END$$;
-            """
-        self.connectionHelper.execute_sql([sql], self.logger)
-
-    def __get_cols_for_table(self, tab):
-        res, desc = self.connectionHelper.execute_sql_fetchall(
-            self.connectionHelper.queries.get_column_details_for_table(self.connectionHelper.config.user_schema,
-                                                                       tab))
-        tab_attribs = [row[0].lower() for row in res]
-        return tab_attribs
-
-    def __create_tab_indexes(self, tab):
-        cols = self.__get_cols_for_table(tab)
-        for col in cols:
-            self.__create_col_idx_if_not_exists(tab, col)
-
-    def backup_one_table(self, table):
-        self.logger.debug(f"Backing up {table}...")
-        self.connectionHelper.begin_transaction()
-        self.drop_derived_relations(table)
-        working_table = self.get_fully_qualified_table_name(table)
-        original_table = self.get_original_table_name(table)
-        if self.connectionHelper.config.use_index:
-            self.__create_tab_indexes(table)
-        self.connectionHelper.execute_sqls_with_DictCursor(
-            [self.connectionHelper.queries.create_table_like(working_table, original_table),
-             self.connectionHelper.queries.insert_into_tab_select_star_fromtab(working_table, original_table)],
-            self.logger)
-        self.connectionHelper.commit_transaction()
-        self.logger.debug(f"... done")
-
-    def drop_r_tables(self):
-        self.connectionHelper.execute_sql(
-            [self.connectionHelper.queries.drop_view(self.get_fully_qualified_table_name("r_e")),
-             self.connectionHelper.queries.drop_table(self.get_fully_qualified_table_name("r_h"))])
-
-    def sanitize_one_table(self, table):
-        self.restore_one_table(table)
-        self.drop_r_tables()
-
-    def get_drop_fn(self, table):
-        return self.connectionHelper.queries.drop_table_cascade \
-            if self.connectionHelper.is_view_or_table(table, self.connectionHelper.config.schema) == 'table' \
-            else self.connectionHelper.queries.drop_view
-
-    def drop_derived_relations(self, table):
-        derived_tables = self.connectionHelper.execute_sql_fetchall(f"select tablename from pg_tables "
-                                                                    f"where schemaname = '{self.connectionHelper.config.schema}' "
-                                                                    f"and tablename LIKE '{table}%{UNMASQUE}';",
-                                                                    self.logger)
-        if derived_tables is not None and len(derived_tables):
-            derived_tables = derived_tables[0]
-        else:
-            derived_tables = []
-        derived_views = self.connectionHelper.execute_sql_fetchall(f"select viewname from pg_views "
-                                                                   f"where schemaname = '{self.connectionHelper.config.schema}' "
-                                                                   f"and viewname LIKE '{table}%{UNMASQUE}';",
-                                                                   self.logger)
-        if derived_views is not None and len(derived_views):
-            derived_views = derived_views[0]
-        else:
-            derived_views = []
-
-        derived_objects = derived_tables + derived_views
-        for obj in derived_objects:
-            drop_fn = self.get_drop_fn(obj)
-            self.connectionHelper.execute_sql([drop_fn(self.get_fully_qualified_table_name(obj))])
-
-    def get_all_sizes(self):
-        for tab in self.all_relations:
-            row_count = self.connectionHelper.execute_sql_fetchone_0(
-                self.connectionHelper.queries.get_row_count(self.get_original_table_name(tab)))
-            if row_count is None:
-                self.logger.debug(f"{tab} does not exists!")
-                row_count = 0
-            self.all_sizes[tab] = row_count
-        return self.all_sizes
-
-
-class Base(TpchSanitizer):
+class Base:
     _instance = None
     method_call_count = 0
 
@@ -886,7 +445,10 @@ class Base(TpchSanitizer):
         return cls._instance
 
     def __init__(self, connectionHelper: AbstractConnectionHelper, name: str, all_sizes=None):
-        super().__init__(connectionHelper, all_sizes)
+        if all_sizes is None:
+            all_sizes = {}
+        self.all_sizes = all_sizes
+        self.all_relations = []
         self.connectionHelper = connectionHelper
         self.extractor_name = name
         self.local_start_time = None
@@ -924,8 +486,32 @@ class Base(TpchSanitizer):
     def extract_params_from_args(self, args):
         pass
 
-    def print_elapsed_time(self):
-        print(str(self.extractor_name) + ".:Elapsed time: ... " + str(self.local_elapsed_time))
+    def remove_footprint(self):
+        self.connectionHelper.execute_sql([f"Drop Schema if exists {self.connectionHelper.config.schema} cascade;"],
+                                          self.logger)
+
+    def _create_working_schema(self):
+        self.remove_footprint()
+        self.connectionHelper.execute_sql([f"Create Schema {self.connectionHelper.config.schema};"], self.logger)
+
+    def get_fully_qualified_table_name(self, table):
+        return f"{self.connectionHelper.config.schema}.{table}"
+
+    def get_original_table_name(self, table):
+        return f"{self.connectionHelper.config.user_schema}.{table}"
+
+    def set_all_relations(self, relations: List[str]):
+        self.all_relations.extend(copy.copy(relations))
+
+    def get_all_sizes(self):
+        for tab in self.all_relations:
+            row_count = self.connectionHelper.execute_sql_fetchone_0(
+                self.connectionHelper.queries.get_row_count(self.get_original_table_name(tab)))
+            if row_count is None:
+                self.logger.debug(f"{tab} does not exists!")
+                row_count = 0
+            self.all_sizes[tab] = row_count
+        return self.all_sizes
 
 
 class Initiator(Base):
@@ -1079,48 +665,8 @@ class NullFreeExecutable(Base):
                 return yes
         return yes
 
-    def get_attrib_val(self, Res, attrib_idx):
-        for row in Res[1:]:
-            if row[attrib_idx] not in [None, 'None']:
-                return row[attrib_idx]
-        return None
-
-    def is_attrib_equal_val(self, Res, attrib, val):
-        idx = Res[0].index(attrib)
-        for row in Res[1:]:
-            self.logger.debug(f"{attrib} value: ", row[idx])
-            if row[idx] not in [None, 'None'] and row[idx] != val:
-                return False
-        yes = not self.is_attrib_all_null(Res, attrib)
-        return yes
-
-    def get_nullfree_row(self, Res):
-        for row in Res[1:]:
-            if 'None' not in row:
-                return row
-        return None
-
-    def get_all_nullfree_rows(self, Res):
-        null_free = [row for row in Res[1:] if 'None' not in row]
-        return null_free
-
-    def isQ_result_no_full_nullfree_row(self, Res):
-        return is_result_no_full_nullfree_row(Res, self.logger)
-
     def isQ_result_nonEmpty_nullfree(self, Res):
         return is_result_nonempty_nullfree(Res, self.logger)
-
-    def isQ_result_empty(self, Res):
-        return is_result_no_full_nullfree_row(Res, self.logger)
-
-    def isQ_result_has_no_data(self, Res):
-        return is_result_has_no_data(Res, self.logger)
-
-    def isQ_result_all_null(self, Res):
-        return is_result_all_null(Res, self.logger)
-
-    def isQ_result_has_some_data(self, Res):
-        return is_result_has_some_data(Res, self.logger)
 
 
 class AppExtractorBase(Base, ABC):
@@ -1131,12 +677,6 @@ class AppExtractorBase(Base, ABC):
         self.app_calls = 0
         self.enabled = True
         self.dirty_name = UNMASQUE + self.extractor_name
-
-    def _get_dirty_name(self, tab):
-        return tab + self.dirty_name
-
-    def reset_data_schema(self):
-        self.app.data_schema = self.connectionHelper.config.user_schema
 
     def set_data_schema(self, schema_name=None):
         if schema_name is None:
