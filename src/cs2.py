@@ -4,7 +4,6 @@ import csv
 import logging
 import os
 import pathlib
-import re
 import time
 from abc import abstractmethod, ABC
 from decimal import Decimal
@@ -264,7 +263,6 @@ class AbstractConnectionHelper:
         pass
 
 
-
 class Config:
     _instance = None
 
@@ -278,19 +276,17 @@ class Config:
         self.use_index = False
         self.scale_retry = 0
         self.sf = 1  # Default 1
-        self.workmem = None
-        self.limit_limit = 1000
         self.database = "postgres"
         # self.index_maker = "create_indexes.sql"
         self.pkfk = "pkfkrelations.csv"
         self.schema = WORKING_SCHEMA
         self.user_schema = "public"
-        self.dbname = "tpch"
+        self.dbname = "tpcds"
         self.port = "5432"
         self.password = "postgres"
         self.user = "postgres"
         self.host = "localhost"
-        self.log_level = 'INFO'
+        self.log_level = 'DEBUG'
         self.base_path = Path(__file__).parent.parent
         self.config_loaded = False
         self.scale_down = True
@@ -324,7 +320,6 @@ class Config:
                         break
 
                 self.pkfk = config_object.get(SUPPORT_SECTION, "pkfk")
-                # self.index_maker = config_object.get(SUPPORT_SECTION, "index_maker")
 
                 self.log_level = "DEBUG"
 
@@ -348,7 +343,6 @@ class PostgresConnectionHelper(AbstractConnectionHelper):
         self.queries = PostgresQueries()
         self.config.config_loaded = True
 
-
     def begin_transaction(self):
         self.execute_sql(["BEGIN;"])
 
@@ -360,8 +354,6 @@ class PostgresConnectionHelper(AbstractConnectionHelper):
         with self.conn.cursor() as set_cur:
             if single_worker:
                 set_cur.execute("SET max_parallel_workers_per_gather = 0;")
-            if self.config.workmem is not None:
-                set_cur.execute(f"SET work_mem = '{self.config.workmem}';")
 
     def cus_execute_sql_with_params(self, cur, sql, params, logger=None):
         for param in params:
@@ -372,8 +364,6 @@ class PostgresConnectionHelper(AbstractConnectionHelper):
             except Exception as e:
                 if logger is not None:
                     logger.error(str(e))
-            # finally:
-            #    cur.close()
 
     def execute_sql_fetchall(self, sql, logger=None):
         cur = self.get_cursor()
@@ -389,8 +379,6 @@ class PostgresConnectionHelper(AbstractConnectionHelper):
                 logger.error(e.diag.message_detail)
             des = str(e)
             raise ValueError(des)
-        # finally:
-        #    cur.close()
         return res, des
 
     def get_DictCursor(self):
@@ -415,8 +403,6 @@ class PostgresConnectionHelper(AbstractConnectionHelper):
                 if logger is not None:
                     logger.error(e)
                 raise e
-            # finally:
-            #    cur.close()
 
     def cur_execute_sql_fetch_one_0(self, cur, sql, logger=None):
         prev = None
@@ -653,18 +639,6 @@ class NullFreeExecutable(Base):
             raise error
         return result
 
-    def is_attrib_all_null(self, Res, attrib):
-        idx = Res[0].index(attrib)
-        yes = True
-        for row in Res[1:]:
-            self.logger.debug(f"{attrib} value: ", row[idx])
-            if row[idx] in [None, 'None']:
-                yes = yes and True
-            else:
-                yes = False
-                return yes
-        return yes
-
     def isQ_result_nonEmpty_nullfree(self, Res):
         return is_result_nonempty_nullfree(Res, self.logger)
 
@@ -703,7 +677,7 @@ class Cs2(AppExtractorBase):
     def __init__(self, connectionHelper,
                  all_sizes,
                  core_relations,
-                 global_key_lists, perc_based_cutoff=False, name="cs2", sf=1, how_many_times_failed=0):
+                 global_key_lists, perc_based_cutoff=False, name="cs2", sf=1):
         super().__init__(connectionHelper, name)
         self.sf = sf
         self.seed_sample_size_per = 0.16 / self.sf
@@ -764,7 +738,6 @@ class Cs2(AppExtractorBase):
 
     def _restore(self):
         for table in self.core_relations:
-            backup_tab = self.get_original_table_name(table)
             self.connectionHelper.execute_sqls_with_DictCursor([
                 self.connectionHelper.queries.create_table_like(
                     self.get_fully_qualified_table_name(table), self.get_original_table_name(table)),
@@ -914,9 +887,14 @@ class ScaleDown(Cs2):
 
 
 if __name__ == '__main__':
-    query = "Select * from catalog_sales Limit 10;"
     config = Config()
     config.parse_config()
+    query_path = os.path.join(config.base_path, 'query.sql')
+    with open(query_path, 'r') as file:
+        content = file.read()
+
+    query = content
+    print(query)
     conn = PostgresConnectionHelper(config)
     conn.connectUsingParams()
     init = Initiator(conn)

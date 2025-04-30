@@ -1,6 +1,24 @@
 # CS2
  Correlated Sampling for TPC-DS
 
+# How To
+
+## Input:
+
+`config.ini` file should be filled in with proper DB credentials (User should have `create` permission in the DB)
+
+`query.sql` should have the target SQL
+
+## Action:
+
+`cd Cs2`
+
+`python3 -m src.cs2`
+
+## Output: `unmasque_dscale` schema in the database will be newly created, containing the sampled database.
+
+
+
 # Related Publication
 Paper link: https://dl.acm.org/doi/pdf/10.1145/2463676.2463701
 
