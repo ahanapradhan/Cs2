@@ -7,6 +7,8 @@
 
 `config.ini` file should be filled in with proper DB credentials (User should have `create` permission in the DB)
 
+`table_sizes` section in the config is optional. In case of its absence, the program gets table cardinalities from the database using `count(*)` queries. To avoid this overhead, the user can add the details in this config. Be sure not to miss any table!
+
 `query.sql` should have the target SQL
 
 ## Action:
