@@ -1642,3 +1642,417 @@ ORDER BY
 2025-04-30 12:26:07,946- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_site; 
 2025-04-30 12:26:07,947- Scale Down - INFO    : {'call_center': 6, 'catalog_page': 1495, 'catalog_returns': 141399, 'catalog_sales': 872117, 'customer': 99934, 'customer_address': 49600, 'customer_demographics': 225772, 'date_dim': 154, 'household_demographics': 7200, 'income_band': 20, 'inventory': 35520, 'item': 11314, 'promotion': 300, 'reason': 35, 'ship_mode': 20, 'store': 6, 'store_returns': 204365, 'store_sales': 2045570, 'time_dim': 45647, 'warehouse': 5, 'web_page': 60, 'web_returns': 50937, 'web_sales': 510871, 'web_site': 30} 
 2025-04-30 12:26:07,947- Scale Down - INFO    : Hopefully Scaling Down Worked! 
+2025-04-30 12:41:18,688- Initiator - INFO    : support files verified.. 
+2025-04-30 12:41:18,691- Initiator - DEBUG   : all relations:  ['call_center', 'catalog_page', 'catalog_returns', 'catalog_sales', 'customer', 'customer_address', 'customer_demographics', 'date_dim', 'household_demographics', 'income_band', 'inventory', 'item', 'promotion', 'reason', 'ship_mode', 'store', 'store_returns', 'store_sales', 'time_dim', 'warehouse', 'web_page', 'web_returns', 'web_sales', 'web_site'] 
+2025-04-30 12:41:18,691- Initiator - INFO    : loaded pk-fk.. [['call_center', 'cc_call_center_sk', 'y', 'n', '', ''], ['catalog_page', 'cp_catalog_page_sk', 'y', 'n', '', ''], ['catalog_returns', 'cr_item_sk', 'y', 'y', 'item', 'i_item_sk'], ['catalog_returns', 'cr_order_number', 'y', 'n', '', ''], ['catalog_sales', 'cs_item_sk', 'y', 'y', 'item', 'i_item_sk'], ['catalog_sales', 'cs_order_number', 'y', 'n', '', ''], ['customer_address', 'ca_address_sk', 'y', 'n', '', ''], ['customer_demographics', 'cd_demo_sk', 'y', 'n', '', ''], ['customer', 'c_customer_sk', 'y', 'n', '', ''], ['date_dim', 'd_date_sk', 'y', 'n', '', ''], ['household_demographics', 'hd_demo_sk', 'y', 'n', '', ''], ['income_band', 'ib_income_band_sk', 'y', 'n', '', ''], ['inventory', 'inv_date_sk', 'y', 'y', 'date_dim', 'd_date_sk'], ['inventory', 'inv_item_sk', 'y', 'y', 'item', 'i_item_sk'], ['inventory', 'inv_warehouse_sk', 'y', 'y', 'warehouse', 'w_warehouse_sk'], ['item', 'i_item_sk', 'y', 'n', '', ''], ['promotion', 'p_promo_sk', 'y', 'n', '', ''], ['reason', 'r_reason_sk', 'y', 'n', '', ''], ['ship_mode', 'sm_ship_mode_sk', 'y', 'n', '', ''], ['store', 's_store_sk', 'y', 'n', '', ''], ['store_returns', 'sr_item_sk', 'y', 'y', 'item', 'i_item_sk'], ['store_returns', 'sr_ticket_number', 'y', 'n', '', ''], ['store_sales', 'ss_item_sk', 'y', 'y', 'item', 'i_item_sk'], ['store_sales', 'ss_ticket_number', 'y', 'n', '', ''], ['time_dim', 't_time_sk', 'y', 'n', '', ''], ['warehouse', 'w_warehouse_sk', 'y', 'n', '', ''], ['web_page', 'wp_web_page_sk', 'y', 'n', '', ''], ['web_returns', 'wr_item_sk', 'y', 'y', 'item', 'i_item_sk'], ['web_returns', 'wr_order_number', 'y', 'n', '', ''], ['web_sales', 'ws_item_sk', 'y', 'y', 'item', 'i_item_sk'], ['web_sales', 'ws_order_number', 'y', 'n', '', ''], ['web_site', 'web_site_sk', 'y', 'n', '', ''], ['customer', 'c_current_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['customer', 'c_current_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['customer', 'c_first_sales_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['customer', 'c_first_shipto_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['customer', 'c_current_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['call_center', 'cc_closed_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['call_center', 'cc_open_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['catalog_page', 'cp_end_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['catalog_page', 'cp_start_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['catalog_returns', 'cr_refunded_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['catalog_returns', 'cr_returning_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['catalog_returns', 'cr_refunded_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['catalog_returns', 'cr_returning_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['catalog_returns', 'cr_call_center_sk', 'n', 'y', 'call_center', 'cc_call_center_sk'], ['catalog_returns', 'cr_refunded_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['catalog_returns', 'cr_returning_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['catalog_returns', 'cr_catalog_page_sk', 'n', 'y', 'catalog_page', 'cp_catalog_page_sk'], ['catalog_returns', 'cr_returned_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['catalog_returns', 'cr_refunded_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['catalog_returns', 'cr_returning_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['catalog_returns', 'cr_returned_time_sk', 'n', 'y', 'time_dim', 't_time_sk'], ['catalog_returns', 'cr_reason_sk', 'n', 'y', 'reason', 'r_reason_sk'], ['catalog_returns', 'cr_ship_mode_sk', 'n', 'y', 'ship_mode', 'sm_ship_mode_sk'], ['catalog_returns', 'cr_warehouse_sk', 'n', 'y', 'warehouse', 'w_warehouse_sk'], ['catalog_sales', 'cs_bill_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['catalog_sales', 'cs_bill_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['catalog_sales', 'cs_bill_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['catalog_sales', 'cs_bill_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['catalog_sales', 'cs_call_center_sk', 'n', 'y', 'call_center', 'cc_call_center_sk'], ['catalog_sales', 'cs_catalog_page_sk', 'n', 'y', 'catalog_page', 'cp_catalog_page_sk'], ['catalog_sales', 'cs_ship_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['catalog_sales', 'cs_sold_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['catalog_sales', 'cs_promo_sk', 'n', 'y', 'promotion', 'p_promo_sk'], ['catalog_sales', 'cs_ship_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['catalog_sales', 'cs_ship_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['catalog_sales', 'cs_ship_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['catalog_sales', 'cs_ship_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['catalog_sales', 'cs_ship_mode_sk', 'n', 'y', 'ship_mode', 'sm_ship_mode_sk'], ['catalog_sales', 'cs_sold_time_sk', 'n', 'y', 'time_dim', 't_time_sk'], ['catalog_sales', 'cs_warehouse_sk', 'n', 'y', 'warehouse', 'w_warehouse_sk'], ['household_demographics', 'hd_income_band_sk', 'n', 'y', 'income_band', 'ib_income_band_sk'], ['promotion', 'p_end_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['promotion', 'p_item_sk', 'n', 'y', 'item', 'i_item_sk'], ['promotion', 'p_start_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['store', 's_closed_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['store_returns', 'sr_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['store_returns', 'sr_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['store_returns', 'sr_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['store_returns', 'sr_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['store_returns', 'sr_reason_sk', 'n', 'y', 'reason', 'r_reason_sk'], ['store_returns', 'sr_returned_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['store_returns', 'sr_store_sk', 'n', 'y', 'store', 's_store_sk'], ['store_returns', 'sr_return_time_sk', 'n', 'y', 'time_dim', 't_time_sk'], ['store_sales', 'ss_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['store_sales', 'ss_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['store_sales', 'ss_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['store_sales', 'ss_sold_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['store_sales', 'ss_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['store_sales', 'ss_promo_sk', 'n', 'y', 'promotion', 'p_promo_sk'], ['store_sales', 'ss_store_sk', 'n', 'y', 'store', 's_store_sk'], ['store_sales', 'ss_sold_time_sk', 'n', 'y', 'time_dim', 't_time_sk'], ['web_site', 'web_close_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['web_site', 'web_open_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['web_page', 'wp_access_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['web_page', 'wp_creation_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['web_returns', 'wr_reason_sk', 'n', 'y', 'reason', 'r_reason_sk'], ['web_returns', 'wr_refunded_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['web_returns', 'wr_refunded_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['web_returns', 'wr_refunded_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['web_returns', 'wr_refunded_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['web_returns', 'wr_returning_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['web_returns', 'wr_returning_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['web_returns', 'wr_returning_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['web_returns', 'wr_returning_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['web_returns', 'wr_returned_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['web_returns', 'wr_returned_time_sk', 'n', 'y', 'time_dim', 't_time_sk'], ['web_returns', 'wr_web_page_sk', 'n', 'y', 'web_page', 'wp_web_page_sk'], ['web_sales', 'ws_bill_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['web_sales', 'ws_bill_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['web_sales', 'ws_bill_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['web_sales', 'ws_bill_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['web_sales', 'ws_sold_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['web_sales', 'ws_promo_sk', 'n', 'y', 'promotion', 'p_promo_sk'], ['web_sales', 'ws_ship_addr_sk', 'n', 'y', 'customer_address', 'ca_address_sk'], ['web_sales', 'ws_ship_customer_sk', 'n', 'y', 'customer', 'c_customer_sk'], ['web_sales', 'ws_ship_cdemo_sk', 'n', 'y', 'customer_demographics', 'cd_demo_sk'], ['web_sales', 'ws_ship_date_sk', 'n', 'y', 'date_dim', 'd_date_sk'], ['web_sales', 'ws_ship_hdemo_sk', 'n', 'y', 'household_demographics', 'hd_demo_sk'], ['web_sales', 'ws_ship_mode_sk', 'n', 'y', 'ship_mode', 'sm_ship_mode_sk'], ['web_sales', 'ws_sold_time_sk', 'n', 'y', 'time_dim', 't_time_sk'], ['web_sales', 'ws_warehouse_sk', 'n', 'y', 'warehouse', 'w_warehouse_sk'], ['web_sales', 'ws_web_page_sk', 'n', 'y', 'web_page', 'wp_web_page_sk'], ['web_sales', 'ws_web_site_sk', 'n', 'y', 'web_site', 'web_site_sk']] 
+2025-04-30 12:41:18,691- Initiator - DEBUG   : ..cur execute..Drop Schema if exists unmasque cascade; 
+2025-04-30 12:41:18,692- Initiator - DEBUG   : ..cur execute..Create Schema unmasque; 
+2025-04-30 12:41:18,693- Initiator - INFO    : Working schema set to unmasque 
+2025-04-30 12:41:18,693- Initiator - DEBUG   : {'call_center': 30, 'catalog_page': 11718, 'catalog_returns': 144067, 'catalog_sales': 1441548, 'customer': 100000, 'customer_address': 50000, 'customer_demographics': 192080, 'date_dim': 73049, 'household_demographics': 7200, 'income_band': 20, 'inventory': 11745000, 'item': 18000, 'promotion': 300, 'reason': 65, 'ship_mode': 20, 'store': 12, 'store_returns': 287514, 'store_sales': 2880404, 'time_dim': 86400, 'warehouse': 5, 'web_page': 60, 'web_returns': 71763, 'web_sales': 719384, 'web_site': 30} 
+2025-04-30 12:41:18,695- Scale Down - DEBUG   : ..cur execute..Drop Schema if exists unmasque_dscale cascade; 
+2025-04-30 12:41:18,702- Scale Down - DEBUG   : ..cur execute..Create Schema unmasque_dscale; 
+2025-04-30 12:41:18,702- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.call_center (like public.call_center including indexes);  
+2025-04-30 12:41:18,742- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.catalog_page (like public.catalog_page including indexes);  
+2025-04-30 12:41:18,834- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.catalog_returns (like public.catalog_returns including indexes);  
+2025-04-30 12:41:18,836- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.catalog_sales (like public.catalog_sales including indexes);  
+2025-04-30 12:41:18,838- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.customer (like public.customer including indexes);  
+2025-04-30 12:41:18,901- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.customer_address (like public.customer_address including indexes);  
+2025-04-30 12:41:18,935- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.customer_demographics (like public.customer_demographics including indexes);  
+2025-04-30 12:41:18,969- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.date_dim (like public.date_dim including indexes);  
+2025-04-30 12:41:19,002- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.household_demographics (like public.household_demographics including indexes);  
+2025-04-30 12:41:19,086- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.income_band (like public.income_band including indexes);  
+2025-04-30 12:41:19,087- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.inventory (like public.inventory including indexes);  
+2025-04-30 12:41:19,088- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.item (like public.item including indexes);  
+2025-04-30 12:41:19,162- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.promotion (like public.promotion including indexes);  
+2025-04-30 12:41:19,204- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.reason (like public.reason including indexes);  
+2025-04-30 12:41:19,246- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.ship_mode (like public.ship_mode including indexes);  
+2025-04-30 12:41:19,288- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.store (like public.store including indexes);  
+2025-04-30 12:41:19,354- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.store_returns (like public.store_returns including indexes);  
+2025-04-30 12:41:19,356- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.store_sales (like public.store_sales including indexes);  
+2025-04-30 12:41:19,357- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.time_dim (like public.time_dim including indexes);  
+2025-04-30 12:41:19,405- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.warehouse (like public.warehouse including indexes);  
+2025-04-30 12:41:19,447- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.web_page (like public.web_page including indexes);  
+2025-04-30 12:41:19,531- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.web_returns (like public.web_returns including indexes);  
+2025-04-30 12:41:19,532- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.web_sales (like public.web_sales including indexes);  
+2025-04-30 12:41:19,534- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.web_site (like public.web_site including indexes);  
+2025-04-30 12:41:19,597- Scale Down - DEBUG   : Starting scaling down  sampling  
+2025-04-30 12:41:19,597- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.call_center (like public.call_center including indexes);  
+2025-04-30 12:41:19,597- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.catalog_page (like public.catalog_page including indexes);  
+2025-04-30 12:41:19,598- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.catalog_returns (like public.catalog_returns including indexes);  
+2025-04-30 12:41:19,598- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.catalog_sales (like public.catalog_sales including indexes);  
+2025-04-30 12:41:19,598- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.customer (like public.customer including indexes);  
+2025-04-30 12:41:19,598- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.customer_address (like public.customer_address including indexes);  
+2025-04-30 12:41:19,599- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.customer_demographics (like public.customer_demographics including indexes);  
+2025-04-30 12:41:19,599- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.date_dim (like public.date_dim including indexes);  
+2025-04-30 12:41:19,600- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.household_demographics (like public.household_demographics including indexes);  
+2025-04-30 12:41:19,600- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.income_band (like public.income_band including indexes);  
+2025-04-30 12:41:19,600- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.inventory (like public.inventory including indexes);  
+2025-04-30 12:41:19,601- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.item (like public.item including indexes);  
+2025-04-30 12:41:19,601- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.promotion (like public.promotion including indexes);  
+2025-04-30 12:41:19,601- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.reason (like public.reason including indexes);  
+2025-04-30 12:41:19,602- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.ship_mode (like public.ship_mode including indexes);  
+2025-04-30 12:41:19,602- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.store (like public.store including indexes);  
+2025-04-30 12:41:19,602- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.store_returns (like public.store_returns including indexes);  
+2025-04-30 12:41:19,602- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.store_sales (like public.store_sales including indexes);  
+2025-04-30 12:41:19,603- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.time_dim (like public.time_dim including indexes);  
+2025-04-30 12:41:19,603- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.warehouse (like public.warehouse including indexes);  
+2025-04-30 12:41:19,603- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.web_page (like public.web_page including indexes);  
+2025-04-30 12:41:19,603- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.web_returns (like public.web_returns including indexes);  
+2025-04-30 12:41:19,604- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.web_sales (like public.web_sales including indexes);  
+2025-04-30 12:41:19,604- Scale Down - DEBUG   : ..cur execute..Create table if not exists unmasque_dscale.web_site (like public.web_site including indexes);  
+2025-04-30 12:41:19,604- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.call_center; 
+2025-04-30 12:41:19,706- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.catalog_page; 
+2025-04-30 12:41:19,882- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.catalog_returns; 
+2025-04-30 12:41:19,906- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.catalog_sales; 
+2025-04-30 12:41:19,921- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.customer; 
+2025-04-30 12:41:20,081- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.customer_address; 
+2025-04-30 12:41:20,198- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.customer_demographics; 
+2025-04-30 12:41:20,375- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.date_dim; 
+2025-04-30 12:41:20,441- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.household_demographics; 
+2025-04-30 12:41:20,541- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.income_band; 
+2025-04-30 12:41:20,562- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.inventory; 
+2025-04-30 12:41:20,579- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.item; 
+2025-04-30 12:41:20,658- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.promotion; 
+2025-04-30 12:41:20,725- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.reason; 
+2025-04-30 12:41:20,808- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.ship_mode; 
+2025-04-30 12:41:20,892- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.store; 
+2025-04-30 12:41:20,984- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.store_returns; 
+2025-04-30 12:41:21,002- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.store_sales; 
+2025-04-30 12:41:21,010- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.time_dim; 
+2025-04-30 12:41:21,067- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.warehouse; 
+2025-04-30 12:41:21,209- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.web_page; 
+2025-04-30 12:41:21,293- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.web_returns; 
+2025-04-30 12:41:21,312- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.web_sales; 
+2025-04-30 12:41:21,327- Scale Down - DEBUG   : ..cur execute..Truncate Table unmasque_dscale.web_site; 
+2025-04-30 12:41:21,451- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales tablesample system(0.032) where (cs_call_center_sk) not in (select distinct(cs_call_center_sk) from unmasque_dscale.catalog_sales) Limit 1441548 ); 
+2025-04-30 12:41:21,458- Scale Down - DEBUG   : catalog_sales 884 
+2025-04-30 12:41:21,459- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.call_center (select * from public.call_center where cc_call_center_sk in (select distinct(cs_call_center_sk) from unmasque_dscale.catalog_sales) and cc_call_center_sk not in (select distinct(cc_call_center_sk) from unmasque_dscale.call_center) Limit 30) ; 
+2025-04-30 12:41:21,461- Scale Down - DEBUG   : call_center 6 
+2025-04-30 12:41:21,461- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_call_center_sk in (select distinct(cs_call_center_sk) from unmasque_dscale.catalog_sales) and cr_call_center_sk not in (select distinct(cr_call_center_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:21,788- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:21,788- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales tablesample system(0.032) where (cs_catalog_page_sk) not in (select distinct(cs_catalog_page_sk) from unmasque_dscale.catalog_sales) Limit 1441548 ); 
+2025-04-30 12:41:21,790- Scale Down - DEBUG   : catalog_sales 884 
+2025-04-30 12:41:21,790- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_page (select * from public.catalog_page where cp_catalog_page_sk in (select distinct(cs_catalog_page_sk) from unmasque_dscale.catalog_sales) and cp_catalog_page_sk not in (select distinct(cp_catalog_page_sk) from unmasque_dscale.catalog_page) Limit 11718) ; 
+2025-04-30 12:41:21,793- Scale Down - DEBUG   : catalog_page 699 
+2025-04-30 12:41:21,793- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_catalog_page_sk in (select distinct(cs_catalog_page_sk) from unmasque_dscale.catalog_sales) and cr_catalog_page_sk not in (select distinct(cr_catalog_page_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:21,863- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:21,863- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.inventory (select * from public.inventory tablesample system(0.032) where (inv_item_sk) not in (select distinct(inv_item_sk) from unmasque_dscale.inventory) Limit 11745000 ); 
+2025-04-30 12:41:21,866- Scale Down - DEBUG   : inventory 2775 
+2025-04-30 12:41:21,866- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_item_sk in (select distinct(inv_item_sk) from unmasque_dscale.inventory) and cr_item_sk not in (select distinct(cr_item_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:21,939- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:21,939- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.item (select * from public.item where i_item_sk in (select distinct(inv_item_sk) from unmasque_dscale.inventory) and i_item_sk not in (select distinct(i_item_sk) from unmasque_dscale.item) Limit 18000) ; 
+2025-04-30 12:41:21,948- Scale Down - DEBUG   : item 2600 
+2025-04-30 12:41:21,949- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_item_sk in (select distinct(inv_item_sk) from unmasque_dscale.inventory) and cs_item_sk not in (select distinct(cs_item_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:23,040- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:23,041- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns where sr_item_sk in (select distinct(inv_item_sk) from unmasque_dscale.inventory) and sr_item_sk not in (select distinct(sr_item_sk) from unmasque_dscale.store_returns) Limit 287514) ; 
+2025-04-30 12:41:23,276- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:23,276- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales where ss_item_sk in (select distinct(inv_item_sk) from unmasque_dscale.inventory) and ss_item_sk not in (select distinct(ss_item_sk) from unmasque_dscale.store_sales) Limit 2880404) ; 
+2025-04-30 12:41:25,137- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:25,137- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_item_sk in (select distinct(inv_item_sk) from unmasque_dscale.inventory) and wr_item_sk not in (select distinct(wr_item_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:25,164- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:25,165- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_item_sk in (select distinct(inv_item_sk) from unmasque_dscale.inventory) and ws_item_sk not in (select distinct(ws_item_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:25,830- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:25,830- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.promotion (select * from public.promotion where p_item_sk in (select distinct(inv_item_sk) from unmasque_dscale.inventory) and p_item_sk not in (select distinct(p_item_sk) from unmasque_dscale.promotion) Limit 300) ; 
+2025-04-30 12:41:25,836- Scale Down - DEBUG   : promotion 54 
+2025-04-30 12:41:25,836- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales tablesample system(0.032) where (ss_addr_sk) not in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) Limit 2880404 ); 
+2025-04-30 12:41:26,003- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:26,003- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.customer_address (select * from public.customer_address where ca_address_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and ca_address_sk not in (select distinct(ca_address_sk) from unmasque_dscale.customer_address) Limit 50000) ; 
+2025-04-30 12:41:26,177- Scale Down - DEBUG   : customer_address 49238 
+2025-04-30 12:41:26,177- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.customer (select * from public.customer where c_current_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and c_current_addr_sk not in (select distinct(c_current_addr_sk) from unmasque_dscale.customer) Limit 100000) ; 
+2025-04-30 12:41:26,422- Scale Down - DEBUG   : customer 98418 
+2025-04-30 12:41:26,422- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_refunded_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and cr_refunded_addr_sk not in (select distinct(cr_refunded_addr_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:26,509- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:26,509- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_returning_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and cr_returning_addr_sk not in (select distinct(cr_returning_addr_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:26,608- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:26,608- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_bill_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and cs_bill_addr_sk not in (select distinct(cs_bill_addr_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:26,989- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:26,990- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_ship_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and cs_ship_addr_sk not in (select distinct(cs_ship_addr_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:27,387- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:27,387- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns where sr_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and sr_addr_sk not in (select distinct(sr_addr_sk) from unmasque_dscale.store_returns) Limit 287514) ; 
+2025-04-30 12:41:27,488- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:27,488- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_refunded_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and wr_refunded_addr_sk not in (select distinct(wr_refunded_addr_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:27,509- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:27,509- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_returning_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and wr_returning_addr_sk not in (select distinct(wr_returning_addr_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:27,529- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:27,530- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_bill_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and ws_bill_addr_sk not in (select distinct(ws_bill_addr_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:27,711- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:27,711- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_ship_addr_sk in (select distinct(ss_addr_sk) from unmasque_dscale.store_sales) and ws_ship_addr_sk not in (select distinct(ws_ship_addr_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:27,904- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:27,904- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales tablesample system(0.032) where (ss_cdemo_sk) not in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) Limit 2880404 ); 
+2025-04-30 12:41:28,113- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:28,113- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.customer_demographics (select * from public.customer_demographics where cd_demo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and cd_demo_sk not in (select distinct(cd_demo_sk) from unmasque_dscale.customer_demographics) Limit 192080) ; 
+2025-04-30 12:41:28,806- Scale Down - DEBUG   : customer_demographics 192080 
+2025-04-30 12:41:28,806- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.customer (select * from public.customer where c_current_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and c_current_cdemo_sk not in (select distinct(c_current_cdemo_sk) from unmasque_dscale.customer) Limit 100000) ; 
+2025-04-30 12:41:28,888- Scale Down - DEBUG   : customer 98418 
+2025-04-30 12:41:28,888- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_refunded_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and cr_refunded_cdemo_sk not in (select distinct(cr_refunded_cdemo_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:28,997- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:28,997- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_returning_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and cr_returning_cdemo_sk not in (select distinct(cr_returning_cdemo_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:29,144- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:29,145- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_bill_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and cs_bill_cdemo_sk not in (select distinct(cs_bill_cdemo_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:29,544- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:29,545- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_ship_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and cs_ship_cdemo_sk not in (select distinct(cs_ship_cdemo_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:29,950- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:29,950- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns where sr_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and sr_cdemo_sk not in (select distinct(sr_cdemo_sk) from unmasque_dscale.store_returns) Limit 287514) ; 
+2025-04-30 12:41:30,036- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:30,036- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_refunded_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and wr_refunded_cdemo_sk not in (select distinct(wr_refunded_cdemo_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:30,072- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:30,073- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_returning_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and wr_returning_cdemo_sk not in (select distinct(wr_returning_cdemo_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:30,094- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:30,094- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_bill_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and ws_bill_cdemo_sk not in (select distinct(ws_bill_cdemo_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:30,293- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:30,293- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_ship_cdemo_sk in (select distinct(ss_cdemo_sk) from unmasque_dscale.store_sales) and ws_ship_cdemo_sk not in (select distinct(ws_ship_cdemo_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:30,494- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:30,495- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales tablesample system(0.032) where (ss_customer_sk) not in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) Limit 2880404 ); 
+2025-04-30 12:41:30,652- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:30,652- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.customer (select * from public.customer where c_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and c_customer_sk not in (select distinct(c_customer_sk) from unmasque_dscale.customer) Limit 100000) ; 
+2025-04-30 12:41:30,859- Scale Down - DEBUG   : customer 99803 
+2025-04-30 12:41:30,859- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_refunded_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and cr_refunded_customer_sk not in (select distinct(cr_refunded_customer_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:30,953- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:30,954- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_returning_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and cr_returning_customer_sk not in (select distinct(cr_returning_customer_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:31,060- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:31,060- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_bill_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and cs_bill_customer_sk not in (select distinct(cs_bill_customer_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:31,451- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:31,451- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_ship_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and cs_ship_customer_sk not in (select distinct(cs_ship_customer_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:31,825- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:31,825- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns where sr_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and sr_customer_sk not in (select distinct(sr_customer_sk) from unmasque_dscale.store_returns) Limit 287514) ; 
+2025-04-30 12:41:31,903- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:31,903- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_refunded_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and wr_refunded_customer_sk not in (select distinct(wr_refunded_customer_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:31,923- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:31,924- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_returning_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and wr_returning_customer_sk not in (select distinct(wr_returning_customer_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:31,945- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:31,945- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_bill_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and ws_bill_customer_sk not in (select distinct(ws_bill_customer_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:32,135- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:32,135- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_ship_customer_sk in (select distinct(ss_customer_sk) from unmasque_dscale.store_sales) and ws_ship_customer_sk not in (select distinct(ws_ship_customer_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:32,331- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:32,331- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.inventory (select * from public.inventory tablesample system(0.032) where (inv_date_sk) not in (select distinct(inv_date_sk) from unmasque_dscale.inventory) Limit 11745000 ); 
+2025-04-30 12:41:32,335- Scale Down - DEBUG   : inventory 6660 
+2025-04-30 12:41:32,335- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.date_dim (select * from public.date_dim where d_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and d_date_sk not in (select distinct(d_date_sk) from unmasque_dscale.date_dim) Limit 73049) ; 
+2025-04-30 12:41:32,345- Scale Down - DEBUG   : date_dim 35 
+2025-04-30 12:41:32,345- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.customer (select * from public.customer where c_first_sales_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and c_first_sales_date_sk not in (select distinct(c_first_sales_date_sk) from unmasque_dscale.customer) Limit 100000) ; 
+2025-04-30 12:41:32,391- Scale Down - DEBUG   : customer 99803 
+2025-04-30 12:41:32,391- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.customer (select * from public.customer where c_first_shipto_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and c_first_shipto_date_sk not in (select distinct(c_first_shipto_date_sk) from unmasque_dscale.customer) Limit 100000) ; 
+2025-04-30 12:41:32,435- Scale Down - DEBUG   : customer 99803 
+2025-04-30 12:41:32,435- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.call_center (select * from public.call_center where cc_closed_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and cc_closed_date_sk not in (select distinct(cc_closed_date_sk) from unmasque_dscale.call_center) Limit 30) ; 
+2025-04-30 12:41:32,436- Scale Down - DEBUG   : call_center 6 
+2025-04-30 12:41:32,436- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.call_center (select * from public.call_center where cc_open_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and cc_open_date_sk not in (select distinct(cc_open_date_sk) from unmasque_dscale.call_center) Limit 30) ; 
+2025-04-30 12:41:32,437- Scale Down - DEBUG   : call_center 6 
+2025-04-30 12:41:32,437- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_page (select * from public.catalog_page where cp_end_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and cp_end_date_sk not in (select distinct(cp_end_date_sk) from unmasque_dscale.catalog_page) Limit 11718) ; 
+2025-04-30 12:41:32,439- Scale Down - DEBUG   : catalog_page 699 
+2025-04-30 12:41:32,440- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_page (select * from public.catalog_page where cp_start_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and cp_start_date_sk not in (select distinct(cp_start_date_sk) from unmasque_dscale.catalog_page) Limit 11718) ; 
+2025-04-30 12:41:32,442- Scale Down - DEBUG   : catalog_page 699 
+2025-04-30 12:41:32,442- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_returned_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and cr_returned_date_sk not in (select distinct(cr_returned_date_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:32,500- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:32,500- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_ship_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and cs_ship_date_sk not in (select distinct(cs_ship_date_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:32,800- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:32,800- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_sold_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and cs_sold_date_sk not in (select distinct(cs_sold_date_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:33,112- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:33,112- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.promotion (select * from public.promotion where p_end_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and p_end_date_sk not in (select distinct(p_end_date_sk) from unmasque_dscale.promotion) Limit 300) ; 
+2025-04-30 12:41:33,114- Scale Down - DEBUG   : promotion 55 
+2025-04-30 12:41:33,114- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.promotion (select * from public.promotion where p_start_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and p_start_date_sk not in (select distinct(p_start_date_sk) from unmasque_dscale.promotion) Limit 300) ; 
+2025-04-30 12:41:33,115- Scale Down - DEBUG   : promotion 55 
+2025-04-30 12:41:33,116- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store (select * from public.store where s_closed_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and s_closed_date_sk not in (select distinct(s_closed_date_sk) from unmasque_dscale.store) Limit 12) ; 
+2025-04-30 12:41:33,117- Scale Down - DEBUG   : store 0 
+2025-04-30 12:41:33,117- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns where sr_returned_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and sr_returned_date_sk not in (select distinct(sr_returned_date_sk) from unmasque_dscale.store_returns) Limit 287514) ; 
+2025-04-30 12:41:33,172- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:33,173- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales where ss_sold_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and ss_sold_date_sk not in (select distinct(ss_sold_date_sk) from unmasque_dscale.store_sales) Limit 2880404) ; 
+2025-04-30 12:41:33,663- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:33,663- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_site (select * from public.web_site where web_close_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and web_close_date_sk not in (select distinct(web_close_date_sk) from unmasque_dscale.web_site) Limit 30) ; 
+2025-04-30 12:41:33,665- Scale Down - DEBUG   : web_site 0 
+2025-04-30 12:41:33,665- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_site (select * from public.web_site where web_open_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and web_open_date_sk not in (select distinct(web_open_date_sk) from unmasque_dscale.web_site) Limit 30) ; 
+2025-04-30 12:41:33,666- Scale Down - DEBUG   : web_site 0 
+2025-04-30 12:41:33,666- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_page (select * from public.web_page where wp_access_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and wp_access_date_sk not in (select distinct(wp_access_date_sk) from unmasque_dscale.web_page) Limit 60) ; 
+2025-04-30 12:41:33,668- Scale Down - DEBUG   : web_page 1 
+2025-04-30 12:41:33,668- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_page (select * from public.web_page where wp_creation_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and wp_creation_date_sk not in (select distinct(wp_creation_date_sk) from unmasque_dscale.web_page) Limit 60) ; 
+2025-04-30 12:41:33,669- Scale Down - DEBUG   : web_page 1 
+2025-04-30 12:41:33,669- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_returned_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and wr_returned_date_sk not in (select distinct(wr_returned_date_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:33,684- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:33,684- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_sold_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and ws_sold_date_sk not in (select distinct(ws_sold_date_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:33,846- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:33,846- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_ship_date_sk in (select distinct(inv_date_sk) from unmasque_dscale.inventory) and ws_ship_date_sk not in (select distinct(ws_ship_date_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:34,003- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:34,003- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales tablesample system(0.032) where (ss_hdemo_sk) not in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) Limit 2880404 ); 
+2025-04-30 12:41:34,129- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:34,130- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.household_demographics (select * from public.household_demographics where hd_demo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and hd_demo_sk not in (select distinct(hd_demo_sk) from unmasque_dscale.household_demographics) Limit 7200) ; 
+2025-04-30 12:41:34,265- Scale Down - DEBUG   : household_demographics 7200 
+2025-04-30 12:41:34,266- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.customer (select * from public.customer where c_current_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and c_current_hdemo_sk not in (select distinct(c_current_hdemo_sk) from unmasque_dscale.customer) Limit 100000) ; 
+2025-04-30 12:41:34,311- Scale Down - DEBUG   : customer 99803 
+2025-04-30 12:41:34,312- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_refunded_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and cr_refunded_hdemo_sk not in (select distinct(cr_refunded_hdemo_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:34,378- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:34,378- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_returning_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and cr_returning_hdemo_sk not in (select distinct(cr_returning_hdemo_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:34,449- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:34,450- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_bill_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and cs_bill_hdemo_sk not in (select distinct(cs_bill_hdemo_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:34,808- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:34,808- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_ship_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and cs_ship_hdemo_sk not in (select distinct(cs_ship_hdemo_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:35,195- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:35,195- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns where sr_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and sr_hdemo_sk not in (select distinct(sr_hdemo_sk) from unmasque_dscale.store_returns) Limit 287514) ; 
+2025-04-30 12:41:35,271- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:35,271- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_refunded_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and wr_refunded_hdemo_sk not in (select distinct(wr_refunded_hdemo_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:35,290- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:35,291- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_returning_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and wr_returning_hdemo_sk not in (select distinct(wr_returning_hdemo_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:35,312- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:35,312- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_bill_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and ws_bill_hdemo_sk not in (select distinct(ws_bill_hdemo_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:35,479- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:35,479- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_ship_hdemo_sk in (select distinct(ss_hdemo_sk) from unmasque_dscale.store_sales) and ws_ship_hdemo_sk not in (select distinct(ws_ship_hdemo_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:35,651- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:35,652- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.household_demographics (select * from public.household_demographics tablesample system(0.032) where (hd_income_band_sk) not in (select distinct(hd_income_band_sk) from unmasque_dscale.household_demographics) Limit 7200 ); 
+2025-04-30 12:41:35,653- Scale Down - DEBUG   : household_demographics 7200 
+2025-04-30 12:41:35,653- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.income_band (select * from public.income_band where ib_income_band_sk in (select distinct(hd_income_band_sk) from unmasque_dscale.household_demographics) and ib_income_band_sk not in (select distinct(ib_income_band_sk) from unmasque_dscale.income_band) Limit 20) ; 
+2025-04-30 12:41:35,654- Scale Down - DEBUG   : income_band 20 
+2025-04-30 12:41:35,655- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.inventory (select * from public.inventory tablesample system(0.032) where (inv_warehouse_sk) not in (select distinct(inv_warehouse_sk) from unmasque_dscale.inventory) Limit 11745000 ); 
+2025-04-30 12:41:35,657- Scale Down - DEBUG   : inventory 6660 
+2025-04-30 12:41:35,657- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.warehouse (select * from public.warehouse where w_warehouse_sk in (select distinct(inv_warehouse_sk) from unmasque_dscale.inventory) and w_warehouse_sk not in (select distinct(w_warehouse_sk) from unmasque_dscale.warehouse) Limit 5) ; 
+2025-04-30 12:41:35,659- Scale Down - DEBUG   : warehouse 5 
+2025-04-30 12:41:35,659- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_warehouse_sk in (select distinct(inv_warehouse_sk) from unmasque_dscale.inventory) and cr_warehouse_sk not in (select distinct(cr_warehouse_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:35,736- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:35,736- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_warehouse_sk in (select distinct(inv_warehouse_sk) from unmasque_dscale.inventory) and cs_warehouse_sk not in (select distinct(cs_warehouse_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:36,087- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:36,087- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_warehouse_sk in (select distinct(inv_warehouse_sk) from unmasque_dscale.inventory) and ws_warehouse_sk not in (select distinct(ws_warehouse_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:36,267- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:36,267- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales tablesample system(0.032) where (ss_promo_sk) not in (select distinct(ss_promo_sk) from unmasque_dscale.store_sales) Limit 2880404 ); 
+2025-04-30 12:41:36,391- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:36,391- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.promotion (select * from public.promotion where p_promo_sk in (select distinct(ss_promo_sk) from unmasque_dscale.store_sales) and p_promo_sk not in (select distinct(p_promo_sk) from unmasque_dscale.promotion) Limit 300) ; 
+2025-04-30 12:41:36,484- Scale Down - DEBUG   : promotion 300 
+2025-04-30 12:41:36,484- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_promo_sk in (select distinct(ss_promo_sk) from unmasque_dscale.store_sales) and cs_promo_sk not in (select distinct(cs_promo_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:36,890- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:36,890- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_promo_sk in (select distinct(ss_promo_sk) from unmasque_dscale.store_sales) and ws_promo_sk not in (select distinct(ws_promo_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:37,082- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:37,083- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns tablesample system(0.032) where (sr_reason_sk) not in (select distinct(sr_reason_sk) from unmasque_dscale.store_returns) Limit 287514 ); 
+2025-04-30 12:41:37,095- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:37,095- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.reason (select * from public.reason where r_reason_sk in (select distinct(sr_reason_sk) from unmasque_dscale.store_returns) and r_reason_sk not in (select distinct(r_reason_sk) from unmasque_dscale.reason) Limit 65) ; 
+2025-04-30 12:41:37,103- Scale Down - DEBUG   : reason 35 
+2025-04-30 12:41:37,103- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_reason_sk in (select distinct(sr_reason_sk) from unmasque_dscale.store_returns) and cr_reason_sk not in (select distinct(cr_reason_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:37,173- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:37,174- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_reason_sk in (select distinct(sr_reason_sk) from unmasque_dscale.store_returns) and wr_reason_sk not in (select distinct(wr_reason_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:37,190- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:37,190- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales tablesample system(0.032) where (cs_ship_mode_sk) not in (select distinct(cs_ship_mode_sk) from unmasque_dscale.catalog_sales) Limit 1441548 ); 
+2025-04-30 12:41:37,270- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:37,270- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.ship_mode (select * from public.ship_mode where sm_ship_mode_sk in (select distinct(cs_ship_mode_sk) from unmasque_dscale.catalog_sales) and sm_ship_mode_sk not in (select distinct(sm_ship_mode_sk) from unmasque_dscale.ship_mode) Limit 20) ; 
+2025-04-30 12:41:37,320- Scale Down - DEBUG   : ship_mode 20 
+2025-04-30 12:41:37,320- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_ship_mode_sk in (select distinct(cs_ship_mode_sk) from unmasque_dscale.catalog_sales) and cr_ship_mode_sk not in (select distinct(cr_ship_mode_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:37,381- Scale Down - DEBUG   : catalog_returns 141152 
+2025-04-30 12:41:37,381- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_ship_mode_sk in (select distinct(cs_ship_mode_sk) from unmasque_dscale.catalog_sales) and ws_ship_mode_sk not in (select distinct(ws_ship_mode_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:37,557- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:37,558- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales tablesample system(0.032) where (ss_store_sk) not in (select distinct(ss_store_sk) from unmasque_dscale.store_sales) Limit 2880404 ); 
+2025-04-30 12:41:37,674- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:37,674- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store (select * from public.store where s_store_sk in (select distinct(ss_store_sk) from unmasque_dscale.store_sales) and s_store_sk not in (select distinct(s_store_sk) from unmasque_dscale.store) Limit 12) ; 
+2025-04-30 12:41:37,749- Scale Down - DEBUG   : store 6 
+2025-04-30 12:41:37,750- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns where sr_store_sk in (select distinct(ss_store_sk) from unmasque_dscale.store_sales) and sr_store_sk not in (select distinct(sr_store_sk) from unmasque_dscale.store_returns) Limit 287514) ; 
+2025-04-30 12:41:37,805- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:37,805- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_sales (select * from public.store_sales tablesample system(0.032) where (ss_sold_time_sk) not in (select distinct(ss_sold_time_sk) from unmasque_dscale.store_sales) Limit 2880404 ); 
+2025-04-30 12:41:37,962- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:37,963- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.time_dim (select * from public.time_dim where t_time_sk in (select distinct(ss_sold_time_sk) from unmasque_dscale.store_sales) and t_time_sk not in (select distinct(t_time_sk) from unmasque_dscale.time_dim) Limit 86400) ; 
+2025-04-30 12:41:38,133- Scale Down - DEBUG   : time_dim 45177 
+2025-04-30 12:41:38,133- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_returns (select * from public.catalog_returns where cr_returned_time_sk in (select distinct(ss_sold_time_sk) from unmasque_dscale.store_sales) and cr_returned_time_sk not in (select distinct(cr_returned_time_sk) from unmasque_dscale.catalog_returns) Limit 144067) ; 
+2025-04-30 12:41:38,339- Scale Down - DEBUG   : catalog_returns 141392 
+2025-04-30 12:41:38,339- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.catalog_sales (select * from public.catalog_sales where cs_sold_time_sk in (select distinct(ss_sold_time_sk) from unmasque_dscale.store_sales) and cs_sold_time_sk not in (select distinct(cs_sold_time_sk) from unmasque_dscale.catalog_sales) Limit 1441548) ; 
+2025-04-30 12:41:38,734- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:38,734- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.store_returns (select * from public.store_returns where sr_return_time_sk in (select distinct(ss_sold_time_sk) from unmasque_dscale.store_sales) and sr_return_time_sk not in (select distinct(sr_return_time_sk) from unmasque_dscale.store_returns) Limit 287514) ; 
+2025-04-30 12:41:38,838- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:38,838- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_returned_time_sk in (select distinct(ss_sold_time_sk) from unmasque_dscale.store_sales) and wr_returned_time_sk not in (select distinct(wr_returned_time_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:38,857- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:38,857- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales where ws_sold_time_sk in (select distinct(ss_sold_time_sk) from unmasque_dscale.store_sales) and ws_sold_time_sk not in (select distinct(ws_sold_time_sk) from unmasque_dscale.web_sales) Limit 719384) ; 
+2025-04-30 12:41:39,044- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:39,045- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales tablesample system(0.032) where (ws_web_page_sk) not in (select distinct(ws_web_page_sk) from unmasque_dscale.web_sales) Limit 719384 ); 
+2025-04-30 12:41:39,080- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:39,080- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_page (select * from public.web_page where wp_web_page_sk in (select distinct(ws_web_page_sk) from unmasque_dscale.web_sales) and wp_web_page_sk not in (select distinct(wp_web_page_sk) from unmasque_dscale.web_page) Limit 60) ; 
+2025-04-30 12:41:39,104- Scale Down - DEBUG   : web_page 60 
+2025-04-30 12:41:39,104- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_returns (select * from public.web_returns where wr_web_page_sk in (select distinct(ws_web_page_sk) from unmasque_dscale.web_sales) and wr_web_page_sk not in (select distinct(wr_web_page_sk) from unmasque_dscale.web_returns) Limit 71763) ; 
+2025-04-30 12:41:39,120- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:39,120- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_sales (select * from public.web_sales tablesample system(0.032) where (ws_web_site_sk) not in (select distinct(ws_web_site_sk) from unmasque_dscale.web_sales) Limit 719384 ); 
+2025-04-30 12:41:39,165- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:39,165- Scale Down - DEBUG   : ..cur execute..insert into unmasque_dscale.web_site (select * from public.web_site where web_site_sk in (select distinct(ws_web_site_sk) from unmasque_dscale.web_sales) and web_site_sk not in (select distinct(web_site_sk) from unmasque_dscale.web_site) Limit 30) ; 
+2025-04-30 12:41:39,192- Scale Down - DEBUG   : web_site 30 
+2025-04-30 12:41:39,192- Scale Down - DEBUG   : select count(*) from unmasque_dscale.call_center; 
+2025-04-30 12:41:39,192- Scale Down - DEBUG   : call_center 6 
+2025-04-30 12:41:39,193- Scale Down - DEBUG   : select count(*) from unmasque_dscale.catalog_page; 
+2025-04-30 12:41:39,193- Scale Down - DEBUG   : catalog_page 699 
+2025-04-30 12:41:39,193- Scale Down - DEBUG   : select count(*) from unmasque_dscale.catalog_returns; 
+2025-04-30 12:41:39,204- Scale Down - DEBUG   : catalog_returns 141392 
+2025-04-30 12:41:39,205- Scale Down - DEBUG   : select count(*) from unmasque_dscale.catalog_sales; 
+2025-04-30 12:41:39,240- Scale Down - DEBUG   : catalog_sales 238572 
+2025-04-30 12:41:39,240- Scale Down - DEBUG   : select count(*) from unmasque_dscale.customer; 
+2025-04-30 12:41:39,249- Scale Down - DEBUG   : customer 99803 
+2025-04-30 12:41:39,249- Scale Down - DEBUG   : select count(*) from unmasque_dscale.customer_address; 
+2025-04-30 12:41:39,255- Scale Down - DEBUG   : customer_address 49238 
+2025-04-30 12:41:39,255- Scale Down - DEBUG   : select count(*) from unmasque_dscale.customer_demographics; 
+2025-04-30 12:41:39,268- Scale Down - DEBUG   : customer_demographics 192080 
+2025-04-30 12:41:39,268- Scale Down - DEBUG   : select count(*) from unmasque_dscale.date_dim; 
+2025-04-30 12:41:39,268- Scale Down - DEBUG   : date_dim 35 
+2025-04-30 12:41:39,268- Scale Down - DEBUG   : select count(*) from unmasque_dscale.household_demographics; 
+2025-04-30 12:41:39,269- Scale Down - DEBUG   : household_demographics 7200 
+2025-04-30 12:41:39,269- Scale Down - DEBUG   : select count(*) from unmasque_dscale.income_band; 
+2025-04-30 12:41:39,269- Scale Down - DEBUG   : income_band 20 
+2025-04-30 12:41:39,269- Scale Down - DEBUG   : select count(*) from unmasque_dscale.inventory; 
+2025-04-30 12:41:39,269- Scale Down - DEBUG   : inventory 6660 
+2025-04-30 12:41:39,270- Scale Down - DEBUG   : select count(*) from unmasque_dscale.item; 
+2025-04-30 12:41:39,270- Scale Down - DEBUG   : item 2600 
+2025-04-30 12:41:39,270- Scale Down - DEBUG   : select count(*) from unmasque_dscale.promotion; 
+2025-04-30 12:41:39,270- Scale Down - DEBUG   : promotion 300 
+2025-04-30 12:41:39,270- Scale Down - DEBUG   : select count(*) from unmasque_dscale.reason; 
+2025-04-30 12:41:39,270- Scale Down - DEBUG   : reason 35 
+2025-04-30 12:41:39,271- Scale Down - DEBUG   : select count(*) from unmasque_dscale.ship_mode; 
+2025-04-30 12:41:39,271- Scale Down - DEBUG   : ship_mode 20 
+2025-04-30 12:41:39,271- Scale Down - DEBUG   : select count(*) from unmasque_dscale.store; 
+2025-04-30 12:41:39,271- Scale Down - DEBUG   : store 6 
+2025-04-30 12:41:39,271- Scale Down - DEBUG   : select count(*) from unmasque_dscale.store_returns; 
+2025-04-30 12:41:39,275- Scale Down - DEBUG   : store_returns 51715 
+2025-04-30 12:41:39,275- Scale Down - DEBUG   : select count(*) from unmasque_dscale.store_sales; 
+2025-04-30 12:41:39,313- Scale Down - DEBUG   : store_sales 518506 
+2025-04-30 12:41:39,313- Scale Down - DEBUG   : select count(*) from unmasque_dscale.time_dim; 
+2025-04-30 12:41:39,316- Scale Down - DEBUG   : time_dim 45177 
+2025-04-30 12:41:39,317- Scale Down - DEBUG   : select count(*) from unmasque_dscale.warehouse; 
+2025-04-30 12:41:39,317- Scale Down - DEBUG   : warehouse 5 
+2025-04-30 12:41:39,317- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_page; 
+2025-04-30 12:41:39,317- Scale Down - DEBUG   : web_page 60 
+2025-04-30 12:41:39,317- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_returns; 
+2025-04-30 12:41:39,319- Scale Down - DEBUG   : web_returns 12699 
+2025-04-30 12:41:39,319- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_sales; 
+2025-04-30 12:41:39,330- Scale Down - DEBUG   : web_sales 128857 
+2025-04-30 12:41:39,330- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_site; 
+2025-04-30 12:41:39,331- Scale Down - DEBUG   : web_site 30 
+2025-04-30 12:41:39,331- Executable - DEBUG   : ..cur execute..set search_path='unmasque_dscale'; SELECT
+    i_category,
+    SUM(ss_net_paid) AS total_sales
+FROM
+    store_sales ss
+JOIN
+    date_dim d ON ss.ss_sold_date_sk = d.d_date_sk
+JOIN
+    item i ON ss.ss_item_sk = i.i_item_sk
+WHERE
+    d.d_year = 2001
+GROUP BY
+    i_category
+ORDER BY
+    total_sales DESC; 
+2025-04-30 12:41:39,369- Executable - DEBUG   : Exe time: 0.038568735122680664 
+2025-04-30 12:41:39,370- Executable - DEBUG   : Result size:  12 
+2025-04-30 12:41:39,370- Scale Down - DEBUG   : Sampling status: True 
+2025-04-30 12:41:39,517- Scale Down - INFO    : Sampling is successful! 
+2025-04-30 12:41:39,517- Scale Down - INFO    : Sampling Percentage: 0.032 
+2025-04-30 12:41:39,517- Scale Down - DEBUG   : select count(*) from unmasque_dscale.call_center; 
+2025-04-30 12:41:39,518- Scale Down - DEBUG   : select count(*) from unmasque_dscale.catalog_page; 
+2025-04-30 12:41:39,519- Scale Down - DEBUG   : select count(*) from unmasque_dscale.catalog_returns; 
+2025-04-30 12:41:39,532- Scale Down - DEBUG   : select count(*) from unmasque_dscale.catalog_sales; 
+2025-04-30 12:41:39,576- Scale Down - DEBUG   : select count(*) from unmasque_dscale.customer; 
+2025-04-30 12:41:39,586- Scale Down - DEBUG   : select count(*) from unmasque_dscale.customer_address; 
+2025-04-30 12:41:39,591- Scale Down - DEBUG   : select count(*) from unmasque_dscale.customer_demographics; 
+2025-04-30 12:41:39,605- Scale Down - DEBUG   : select count(*) from unmasque_dscale.date_dim; 
+2025-04-30 12:41:39,605- Scale Down - DEBUG   : select count(*) from unmasque_dscale.household_demographics; 
+2025-04-30 12:41:39,606- Scale Down - DEBUG   : select count(*) from unmasque_dscale.income_band; 
+2025-04-30 12:41:39,606- Scale Down - DEBUG   : select count(*) from unmasque_dscale.inventory; 
+2025-04-30 12:41:39,607- Scale Down - DEBUG   : select count(*) from unmasque_dscale.item; 
+2025-04-30 12:41:39,608- Scale Down - DEBUG   : select count(*) from unmasque_dscale.promotion; 
+2025-04-30 12:41:39,608- Scale Down - DEBUG   : select count(*) from unmasque_dscale.reason; 
+2025-04-30 12:41:39,609- Scale Down - DEBUG   : select count(*) from unmasque_dscale.ship_mode; 
+2025-04-30 12:41:39,609- Scale Down - DEBUG   : select count(*) from unmasque_dscale.store; 
+2025-04-30 12:41:39,610- Scale Down - DEBUG   : select count(*) from unmasque_dscale.store_returns; 
+2025-04-30 12:41:39,621- Scale Down - DEBUG   : select count(*) from unmasque_dscale.store_sales; 
+2025-04-30 12:41:39,674- Scale Down - DEBUG   : select count(*) from unmasque_dscale.time_dim; 
+2025-04-30 12:41:39,678- Scale Down - DEBUG   : select count(*) from unmasque_dscale.warehouse; 
+2025-04-30 12:41:39,679- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_page; 
+2025-04-30 12:41:39,679- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_returns; 
+2025-04-30 12:41:39,680- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_sales; 
+2025-04-30 12:41:39,694- Scale Down - DEBUG   : select count(*) from unmasque_dscale.web_site; 
+2025-04-30 12:41:39,695- Scale Down - INFO    : {'call_center': 6, 'catalog_page': 699, 'catalog_returns': 141392, 'catalog_sales': 238572, 'customer': 99803, 'customer_address': 49238, 'customer_demographics': 192080, 'date_dim': 35, 'household_demographics': 7200, 'income_band': 20, 'inventory': 6660, 'item': 2600, 'promotion': 300, 'reason': 35, 'ship_mode': 20, 'store': 6, 'store_returns': 51715, 'store_sales': 518506, 'time_dim': 45177, 'warehouse': 5, 'web_page': 60, 'web_returns': 12699, 'web_sales': 128857, 'web_site': 30} 
+2025-04-30 12:41:39,695- Scale Down - INFO    : Hopefully Scaling Down Worked! 

@@ -42,6 +42,8 @@ USER = "user"
 PASSWORD = "password"
 DBNAME = "dbname"
 SCHEMA = "schema"
+SCALE_FACTOR = "scale_factor"
+SCALE_RETRY = "scale_retry"
 
 
 def log_result(Res, logger):
@@ -322,6 +324,18 @@ class Config:
                 self.pkfk = config_object.get(SUPPORT_SECTION, "pkfk")
 
                 self.log_level = "DEBUG"
+
+                try:
+                    scale_factor = config_object.get(OPTIONS_SECTION, SCALE_FACTOR)
+                    self.sf = int(scale_factor)
+                except:
+                    pass
+
+                try:
+                    retry_scale_down = config_object.get(OPTIONS_SECTION, SCALE_RETRY)
+                    self.scale_retry = int(retry_scale_down)
+                except:
+                    pass
 
         except FileNotFoundError:
             print("config.ini not found. Default configs loaded!")
