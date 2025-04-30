@@ -124,4 +124,3 @@ web_sales,ws_sold_time_sk,n,y,time_dim,t_time_sk
 web_sales,ws_warehouse_sk,n,y,warehouse,w_warehouse_sk
 web_sales,ws_web_page_sk,n,y,web_page,wp_web_page_sk
 web_sales,ws_web_site_sk,n,y,web_site,web_site_sk
-

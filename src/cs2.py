@@ -1368,13 +1368,6 @@ class ScaleDown(Cs2):
     def _correlated_sampling(self, query, sizes, to_truncate=False):
         self.logger.debug("Starting scaling down  sampling ")
         self._do_sampling(sizes, to_truncate)
-        """
-        for q in query:
-            sanity = self._sanity_check(sizes, q)
-            if not sanity:
-                self.logger.debug(f"{q} is not satisfied!")
-                return False
-        """
         sanity = self._sanity_check(sizes, query)
         self.logger.debug(f"Sampling status: {sanity}")
         return sanity

@@ -1,6 +1,7 @@
 # CS2
  Correlated Sampling for TPC-DS
 
+# Related Publication
 Paper link: https://dl.acm.org/doi/pdf/10.1145/2463676.2463701
 
 @inproceedings{yu2013cs2,
